@@ -26,7 +26,8 @@
 ### 方式一：双击启动
 
 1. 克隆或下载本仓库。
-2. 将 PDF 按主题放入 `library/`，例如：
+2. 解压后直接双击仓库根目录中的 `PaperGraph.exe`，程序会自动启动本地服务并在浏览器中打开论文知识图谱。
+3. 将 PDF 按主题放入 `library/`，例如：
 
    ```text
    library/
@@ -38,9 +39,9 @@
        └── example-c.pdf
    ```
 
-3. 双击 `start.cmd`。
-4. Windows 用户解压后可直接双击仓库根目录中的 `PaperGraph.exe`；也可双击 `start.cmd`，它会在 EXE 缺失时自动编译并启动。
-5. 点击页面顶部的“一键更新”。
+4. 点击页面顶部的“一键更新”。
+
+如果 `PaperGraph.exe` 缺失，开发者也可以双击 `start.cmd`；脚本会先使用 `build.ps1` 编译启动器，再运行程序。
 
 系统要求：Windows 10/11、.NET Framework 4.x、现代浏览器。
 
@@ -106,7 +107,7 @@ python tools\build_catalog.py
 - PDF 打开、重命名与扫描都限制在仓库的 `library/` 目录内。
 - 上传的摘要图片限制为 PNG、JPEG、GIF 或 WebP，单张不超过 10 MB。
 - 重命名会拒绝非法字符、Windows 保留文件名、过长路径和同名覆盖。
-- 请勿把个人论文库、真实 `papers.json`、`dist/user-assets/` 或编译后的 EXE 提交到公共仓库。上述内容已由 `.gitignore` 默认排除。
+- 请勿把个人论文库、真实 `papers.json` 或 `dist/user-assets/` 提交到公共仓库。仓库仅保留可公开分发的 `PaperGraph.exe`，其他 EXE 默认被 `.gitignore` 排除。
 
 ## 项目结构
 
@@ -121,6 +122,7 @@ python tools\build_catalog.py
 ├── tools/
 │   ├── PaperGraphLauncher.cs
 │   └── build_catalog.py
+├── PaperGraph.exe           # Windows 双击启动器
 ├── build.ps1
 ├── start.cmd
 ├── requirements.txt
