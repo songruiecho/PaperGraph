@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="可筛选、可编辑的论文知识图谱">
+  <title>论文知识图谱</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand-block">
+        <div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div>
+          <p class="eyebrow">RESEARCH ATLAS</p>
+          <h1>论文知识图谱</h1>
+        </div>
+      </div>
+      <div class="header-cartoon" aria-hidden="true">
+        <span class="cartoon-spark">✦</span>
+        <span class="cartoon-robot">🤖</span>
+        <span class="cartoon-book">📖</span>
+        <span class="cartoon-spark">✦</span>
+      </div>
+      <div class="header-actions">
+        <div class="refresh-wrap">
+          <button id="refresh-catalog" class="refresh-button" type="button"><span aria-hidden="true">↻</span> 一键更新</button>
+          <small id="refresh-status">扫描新下载的 PDF</small>
+        </div>
+        <div class="header-stats" aria-label="论文统计">
+          <div><strong id="total-count">—</strong><span>论文</span></div>
+          <div><strong id="read-count">—</strong><span>已读</span></div>
+          <div><strong id="keyword-count">—</strong><span>关键词</span></div>
+        </div>
+      </div>
+    </header>
+
+    <section class="workspace">
+      <aside class="filters-panel" aria-label="筛选器">
+        <div class="panel-heading">
+          <span>探索范围</span>
+          <button id="reset-filters" class="text-button" type="button">重置</button>
+        </div>
+
+        <label class="field-label" for="keyword-filter">关键词</label>
+        <div class="select-wrap">
+          <select id="keyword-filter"><option value="all">全部关键词</option></select>
+        </div>
+
+        <label class="field-label" for="status-filter">阅读状态</label>
+        <div class="segmented" id="status-filter" role="group" aria-label="阅读状态">
+          <button class="active" type="button" data-status="all">全部</button>
+          <button type="button" data-status="read">已读</button>
+          <button type="button" data-status="unread">未读</button>
+        </div>
+
+        <label class="field-label" for="search-input">搜索论文</label>
+        <div class="search-wrap">
+          <span aria-hidden="true">⌕</span>
+          <input id="search-input" type="search" placeholder="标题、作者或会议">
+        </div>
+
+        <div class="legend-card">
+          <p class="field-label">图例</p>
+          <div><span class="legend-dot keyword"></span><span>分类关键词</span></div>
+          <div><span class="legend-dot read"></span><span>已读论文</span></div>
+          <div><span class="legend-dot unread"></span><span>未读论文</span></div>
+        </div>
+
+        <div class="progress-card">
+          <div class="progress-copy"><span>阅读进度</span><strong id="progress-label">0%</strong></div>
+          <div class="progress-track"><span id="progress-bar"></span></div>
+          <p id="progress-note">正在载入论文目录…</p>
+        </div>
+
+        <p class="hint">滚轮缩放 · 拖动画布 · 点击论文查看详情 · 右键论文修改标题</p>
+      </aside>
+
+      <section class="graph-panel" aria-label="论文知识图谱">
+        <div class="graph-toolbar">
+          <div>
+            <span class="live-dot"></span>
+            <strong id="scope-title">全部论文</strong>
+            <small id="scope-count"></small>
+          </div>
+          <button id="fit-graph" class="icon-button" type="button" title="适配画布" aria-label="适配画布">⌗</button>
+        </div>
+        <div class="column-labels" aria-hidden="true"><span>分类关键词</span><span>论文</span></div>
+        <svg id="graph" role="img" aria-label="论文与关键词关系图谱">
+          <g id="viewport">
+            <g id="edges"></g>
+            <g id="nodes"></g>
+          </g>
+        </svg>
+        <div id="empty-state" class="empty-state" hidden>
+          <span>∅</span>
+          <strong>没有匹配的论文</strong>
+          <p>试试更换关键词或清空搜索条件。</p>
+        </div>
+      </section>
+
+      <aside class="detail-panel" aria-label="论文元数据">
+        <div id="detail-empty" class="detail-empty">
+          <div class="orbit-icon"><span></span><i></i></div>
+          <h2>选择一篇论文</h2>
+          <p>点击图中的论文节点，这里会展示元数据、分类关系与阅读摘要。</p>
+        </div>
+
+        <article id="paper-detail" hidden>
+          <h2><a id="paper-title" href="#" title="使用系统默认 PDF 阅读器打开"></a></h2>
+          <div id="paper-keywords" class="keyword-list"></div>
+          <div class="keyword-editor">
+            <select id="paper-keyword-editor" aria-label="选择要添加的关键词"></select>
+            <button id="add-paper-keyword" class="secondary-button" type="button">添加关键词</button>
+          </div>
+          <p class="keyword-help">点击已有关键词可将它从当前论文中移除。</p>
+
+          <div class="importance-section">
+            <div class="importance-heading"><span>重要程度</span><strong id="rating-label">1 / 5</strong></div>
+            <div id="rating-stars" class="rating-stars" role="radiogroup" aria-label="论文重要程度">
+              <button type="button" data-rating="1" aria-label="1 星">★</button>
+              <button type="button" data-rating="2" aria-label="2 星">★</button>
+              <button type="button" data-rating="3" aria-label="3 星">★</button>
+              <button type="button" data-rating="4" aria-label="4 星">★</button>
+              <button type="button" data-rating="5" aria-label="5 星">★</button>
+            </div>
+          </div>
+
+          <div class="summary-section">
+            <div class="summary-heading">
+              <span>阅读摘要</span>
+              <span id="save-state">本地保存</span>
+            </div>
+            <div class="editor-toolbar" role="toolbar" aria-label="摘要格式工具">
+              <button type="button" data-command="bold" title="加粗（Ctrl+B）"><strong>B</strong></button>
+              <button type="button" data-command="italic" title="斜体（Ctrl+I）"><em>I</em></button>
+              <button type="button" data-command="underline" title="下划线（Ctrl+U）"><u>U</u></button>
+              <button type="button" data-command="insertUnorderedList" title="项目符号">• 列表</button>
+              <span class="toolbar-divider"></span>
+              <button type="button" data-command="undo" title="撤销（Ctrl+Z）">↶</button>
+              <button type="button" data-command="redo" title="重做（Ctrl+Y）">↷</button>
+              <button id="insert-image" class="image-tool" type="button" title="插入图片或直接粘贴截图">▧ 图片</button>
+              <input id="summary-image-input" type="file" accept="image/png,image/jpeg,image/gif,image/webp" hidden>
+            </div>
+            <div id="summary-input" class="rich-editor" contenteditable="true" role="textbox" aria-multiline="true" data-placeholder="读完后在这里写下摘要。支持富文本格式，也可以直接粘贴截图。"></div>
+            <button id="save-summary" class="primary-button" type="button">保存摘要</button>
+            <p class="privacy-note">Ctrl+B 加粗，Ctrl+V 可直接粘贴截图。摘要保存在浏览器，图片保存在图谱的本地资源目录。</p>
+          </div>
+        </article>
+      </aside>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+{
+  "papers": [
+    {
+      "id": "p1",
+      "title": "Attention Is All You Need",
+      "filename": "Attention Is All You Need.pdf",
+      "year": "2017",
+      "venue": "NeurIPS",
+      "authors": "Ashish Vaswani et al.",
+      "taxonomy": ["Natural Language Processing", "Transformers"],
+      "keywords": ["Natural Language Processing", "Transformers"],
+      "read": true,
+      "summary": "Introduces the Transformer architecture, replacing recurrence with attention mechanisms for sequence modeling.",
+      "path": "library\\Natural Language Processing\\Transformers\\Attention Is All You Need.pdf",
+      "sizeMB": 0
+    },
+    {
+      "id": "p2",
+      "title": "Language Models are Few-Shot Learners",
+      "filename": "Language Models are Few-Shot Learners.pdf",
+      "year": "2020",
+      "venue": "NeurIPS",
+      "authors": "Tom B. Brown et al.",
+      "taxonomy": ["Natural Language Processing", "In-Context Learning"],
+      "keywords": ["Natural Language Processing", "In-Context Learning"],
+      "read": false,
+      "summary": "",
+      "path": "library\\Natural Language Processing\\In-Context Learning\\Language Models are Few-Shot Learners.pdf",
+      "sizeMB": 0
+    },
+    {
+      "id": "p3",
+      "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "filename": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.pdf",
+      "year": "2020",
+      "venue": "NeurIPS",
+      "authors": "Patrick Lewis et al.",
+      "taxonomy": ["Retrieval-Augmented Generation"],
+      "keywords": ["Retrieval-Augmented Generation"],
+      "read": false,
+      "summary": "",
+      "path": "library\\Retrieval-Augmented Generation\\Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.pdf",
+      "sizeMB": 0
+    },
+    {
+      "id": "p4",
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "filename": "ReAct Synergizing Reasoning and Acting in Language Models.pdf",
+      "year": "2023",
+      "venue": "ICLR",
+      "authors": "Shunyu Yao et al.",
+      "taxonomy": ["AI Agents", "Reasoning"],
+      "keywords": ["AI Agents", "Reasoning"],
+      "read": true,
+      "summary": "Combines reasoning traces with task actions so language-model agents can plan, interact with tools, and revise their behavior.",
+      "path": "library\\AI Agents\\Reasoning\\ReAct Synergizing Reasoning and Acting in Language Models.pdf",
+      "sizeMB": 0
+    }
+  ]
+}
